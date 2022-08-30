@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CeresToolbar">
+        <attr name="leftButtonIcon" format="reference" />
+        <attr name="rightButtonIcon" format="reference" />
+        <attr name="title" format="string" />
+        <attr name="subtitle" format="string" />
+        <attr name="showSubtitle" format="boolean" />
+        <attr name="flattenButtons" format="boolean" />
+    </declare-styleable>
+</resources>
