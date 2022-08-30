@@ -7,7 +7,10 @@ import android.util.AttributeSet
 import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.annotation.ColorInt
 import androidx.core.view.isVisible
+import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.core.ui.Colors.setImageColor
 
 class CeresToolbar(context: Context, attrs: AttributeSet?) : FrameLayout(context, attrs) {
 
@@ -32,6 +35,16 @@ class CeresToolbar(context: Context, attrs: AttributeSet?) : FrameLayout(context
 
         val leftIcon = a.getResourceId(R.styleable.CeresToolbar_leftButtonIcon, -1)
         val rightIcon = a.getResourceId(R.styleable.CeresToolbar_rightButtonIcon, -1)
+        val iconColor = a.getColor(
+            R.styleable.CeresToolbar_iconForegroundColor,
+            Resources.androidTextColorSecondary(context)
+        )
+        val iconBackgroundColor = a.getColor(
+            R.styleable.CeresToolbar_iconBackgroundColor,
+            Resources.androidBackgroundColorSecondary(context)
+        )
+
+        a.close()
 
         if (leftIcon != -1) {
             leftQuickAction.isVisible = true
@@ -43,6 +56,8 @@ class CeresToolbar(context: Context, attrs: AttributeSet?) : FrameLayout(context
             rightQuickAction.setImageResource(rightIcon)
         }
 
+        updateButtonColor(rightQuickAction, iconColor, iconBackgroundColor)
+        updateButtonColor(leftQuickAction, iconColor, iconBackgroundColor)
 
         val flattenQuickActions = a.getBoolean(R.styleable.CeresToolbar_flattenButtons, false)
         if (flattenQuickActions) {
@@ -54,6 +69,15 @@ class CeresToolbar(context: Context, attrs: AttributeSet?) : FrameLayout(context
     private fun ImageButton.flatten() {
         backgroundTintList = ColorStateList.valueOf(Color.TRANSPARENT)
         elevation = 0f
+    }
+
+    private fun updateButtonColor(
+        button: ImageButton,
+        @ColorInt foreground: Int,
+        @ColorInt background: Int
+    ) {
+        setImageColor(button.drawable, foreground)
+        button.backgroundTintList = ColorStateList.valueOf(background)
     }
 
 }

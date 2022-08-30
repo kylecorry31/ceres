@@ -8,7 +8,6 @@ version = "$versionName"
 
 android {
     compileSdk compileVersion
-    namespace 'com.kylecorry.ceres.toolbar'
 
     defaultConfig {
         minSdkVersion 21
@@ -20,12 +19,6 @@ android {
     packagingOptions {
         exclude 'META-INF/LICENSE.md'
         exclude 'META-INF/LICENSE-notice.md'
-    }
-    sourceSets {
-        main.res.srcDirs = [
-                "src/main/res",
-                "src/main/res-public"
-        ]
     }
     buildTypes {
         release {
@@ -67,6 +60,7 @@ afterEvaluate {
 
 dependencies {
     implementation 'androidx.core:core-ktx:1.8.0'
+    implementation 'com.github.kylecorry31.andromeda:core:5.0.0-beta08'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.junit.platform:junit-platform-runner:1.9.0'
