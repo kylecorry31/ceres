@@ -8,7 +8,7 @@ buildscript {
         classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.10'
     }
     ext.groupId = 'com.kylecorry.ceres'
-    ext.versionName = '0.1.0'
+    ext.versionName = '0.1.1'
     ext.targetVersion = 33
     ext.compileVersion = 33
 }

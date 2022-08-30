@@ -44,8 +44,6 @@ class CeresToolbar(context: Context, attrs: AttributeSet?) : FrameLayout(context
             Resources.androidBackgroundColorSecondary(context)
         )
 
-        a.close()
-
         if (leftIcon != -1) {
             leftButton.isVisible = true
             leftButton.setImageResource(leftIcon)
@@ -76,7 +74,9 @@ class CeresToolbar(context: Context, attrs: AttributeSet?) : FrameLayout(context
         @ColorInt foreground: Int,
         @ColorInt background: Int
     ) {
-        setImageColor(button.drawable, foreground)
+        button.drawable?.let {
+            setImageColor(it, foreground)
+        }
         button.backgroundTintList = ColorStateList.valueOf(background)
     }
 
