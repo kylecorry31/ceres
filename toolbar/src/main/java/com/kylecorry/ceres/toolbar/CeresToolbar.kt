@@ -14,15 +14,15 @@ import com.kylecorry.andromeda.core.ui.Colors.setImageColor
 
 class CeresToolbar(context: Context, attrs: AttributeSet?) : FrameLayout(context, attrs) {
 
-    val leftQuickAction: ImageButton
-    val rightQuickAction: ImageButton
+    val leftButton: ImageButton
+    val rightButton: ImageButton
     val title: TextView
     val subtitle: TextView
 
     init {
         inflate(context, R.layout.view_ceres_toolbar, this)
-        leftQuickAction = findViewById(R.id.ceres_toolbar_left_button)
-        rightQuickAction = findViewById(R.id.ceres_toolbar_right_button)
+        leftButton = findViewById(R.id.ceres_toolbar_left_button)
+        rightButton = findViewById(R.id.ceres_toolbar_right_button)
         title = findViewById(R.id.ceres_toolbar_title)
         subtitle = findViewById(R.id.ceres_toolbar_subtitle)
 
@@ -47,22 +47,22 @@ class CeresToolbar(context: Context, attrs: AttributeSet?) : FrameLayout(context
         a.close()
 
         if (leftIcon != -1) {
-            leftQuickAction.isVisible = true
-            leftQuickAction.setImageResource(leftIcon)
+            leftButton.isVisible = true
+            leftButton.setImageResource(leftIcon)
         }
 
         if (rightIcon != -1) {
-            rightQuickAction.isVisible = true
-            rightQuickAction.setImageResource(rightIcon)
+            rightButton.isVisible = true
+            rightButton.setImageResource(rightIcon)
         }
 
-        updateButtonColor(rightQuickAction, iconColor, iconBackgroundColor)
-        updateButtonColor(leftQuickAction, iconColor, iconBackgroundColor)
+        updateButtonColor(rightButton, iconColor, iconBackgroundColor)
+        updateButtonColor(leftButton, iconColor, iconBackgroundColor)
 
         val flattenQuickActions = a.getBoolean(R.styleable.CeresToolbar_flattenButtons, false)
         if (flattenQuickActions) {
-            rightQuickAction.flatten()
-            leftQuickAction.flatten()
+            rightButton.flatten()
+            leftButton.flatten()
         }
     }
 
