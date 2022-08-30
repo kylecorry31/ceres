@@ -1,0 +1,26 @@
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:7.2.2'
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.10'
+    }
+    ext.groupId = 'com.kylecorry.ceres'
+    ext.versionName = '0.1.0'
+    ext.targetVersion = 33
+    ext.compileVersion = 33
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        maven { url "https://jitpack.io" }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
