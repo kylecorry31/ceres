@@ -21,6 +21,12 @@ android {
         exclude 'META-INF/LICENSE.md'
         exclude 'META-INF/LICENSE-notice.md'
     }
+    sourceSets {
+        main.res.srcDirs = [
+                "src/main/res",
+                "src/main/res-public"
+        ]
+    }
     buildTypes {
         release {
             minifyEnabled false
