@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <public name="backgroundTint" type="color" />
+    <public name="foregroundTint" type="color" />
+    <public name="icon" type="drawable" />
+</resources>

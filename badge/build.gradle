@@ -20,6 +20,9 @@ android {
         exclude 'META-INF/LICENSE.md'
         exclude 'META-INF/LICENSE-notice.md'
     }
+    buildFeatures {
+        viewBinding true
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -51,7 +54,7 @@ afterEvaluate {
             release(MavenPublication) {
                 from components.release
                 groupId = group
-                artifactId = 'toolbar'
+                artifactId = 'badge'
                 version = version
             }
         }
@@ -61,6 +64,7 @@ afterEvaluate {
 dependencies {
     implementation 'androidx.core:core-ktx:1.8.0'
     implementation "com.github.kylecorry31.andromeda:core:${andromedaVersion}"
+    implementation 'com.google.android.flexbox:flexbox:3.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.junit.platform:junit-platform-runner:1.9.0'

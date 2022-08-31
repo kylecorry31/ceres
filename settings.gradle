@@ -1,3 +1,5 @@
 rootProject.name = "Ceres"
 include ':core'
 include ':toolbar'
+include ':list'
+include ':badge'

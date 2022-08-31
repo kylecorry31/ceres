@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CeresBadge">
+        <attr name="icon" format="reference" />
+        <attr name="foregroundTint" format="color" />
+        <attr name="backgroundTint" format="color" />
+    </declare-styleable>
+</resources>
