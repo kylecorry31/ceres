@@ -60,6 +60,8 @@ data class ResourceListIcon(
             backgroundTint?.let {
                 Colors.setImageColor(image.background, it)
             }
+        } else {
+            image.background = null
         }
 
         val padding = (1 - foregroundScale) * Resources.dp(image.context, 12f)
