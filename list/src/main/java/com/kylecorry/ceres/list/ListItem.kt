@@ -1,5 +1,6 @@
 package com.kylecorry.ceres.list
 
+import android.view.ViewOutlineProvider
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.ColorInt
@@ -7,6 +8,8 @@ import androidx.annotation.DrawableRes
 import androidx.core.view.isVisible
 import androidx.core.view.setPadding
 import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.core.tryOrLog
+import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.core.ui.Colors
 import com.kylecorry.andromeda.core.ui.setCompoundDrawables
 import kotlin.math.roundToInt
@@ -47,13 +50,22 @@ data class ResourceListIcon(
     @ColorInt val tint: Int? = null,
     @DrawableRes val backgroundId: Int? = null,
     @ColorInt val backgroundTint: Int? = null,
-    val foregroundScale: Float = 1f
+    val size: Float = 24f,
+    val foregroundSize: Float = size,
+    val clipToBackground: Boolean = false,
+    val scaleType: ImageView.ScaleType = ImageView.ScaleType.FIT_CENTER,
+    val onClick: (() -> Unit)? = null
 ) : ListIcon {
     override fun apply(image: ImageView) {
-        // Default image width: 24dp
         image.isVisible = true
         image.setImageResource(id)
         Colors.setImageColor(image, tint)
+
+        image.scaleType = scaleType
+        tryOrLog {
+            image.layoutParams.width = Resources.dp(image.context, size).toInt()
+            image.layoutParams.height = Resources.dp(image.context, size).toInt()
+        }
 
         if (backgroundId != null) {
             image.setBackgroundResource(backgroundId)
@@ -64,8 +76,22 @@ data class ResourceListIcon(
             image.background = null
         }
 
-        val padding = (1 - foregroundScale) * Resources.dp(image.context, 12f)
+        if (clipToBackground) {
+            image.outlineProvider = ViewOutlineProvider.BACKGROUND
+            image.clipToOutline = true
+        } else {
+            image.clipToOutline = false
+        }
+
+        val padding = (size - Resources.dp(image.context, foregroundSize)) / 2f
         image.setPadding(padding.roundToInt())
+
+        image.requestLayout()
+        if (onClick == null) {
+            image.setOnClickListener(null)
+        } else {
+            image.setOnClickListener { onClick.invoke() }
+        }
     }
 
     override fun apply(text: TextView) {
