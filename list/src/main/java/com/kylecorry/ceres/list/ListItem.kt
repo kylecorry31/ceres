@@ -83,7 +83,7 @@ data class ResourceListIcon(
             image.clipToOutline = false
         }
 
-        val padding = (size - Resources.dp(image.context, foregroundSize)) / 2f
+        val padding = Resources.dp(image.context, (size - foregroundSize)) / 2f
         image.setPadding(padding.roundToInt())
 
         image.requestLayout()
