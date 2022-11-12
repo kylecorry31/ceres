@@ -153,12 +153,13 @@ class Chart : CanvasView, IChart {
         noStroke()
         val yLabels = mutableListOf<Pair<String, Float>>()
         var yLabelSize = 0f
+        val sp1 = sp(1f)
         for (i in 0 until _yLabelCount) {
             val value =
                 SolMath.lerp(i / (_yLabelCount - 1).toFloat(), _currentYMinimum, _currentYMaximum)
             val label = _yLabelFormatter.format(value)
             yLabels.add(label to value)
-            yLabelSize = max(yLabelSize, textWidth(label) + 10f)
+            yLabelSize = max(yLabelSize, textWidth(label) + sp1)
         }
 
         // X axis labels
