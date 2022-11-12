@@ -158,7 +158,7 @@ class Chart : CanvasView, IChart {
                 SolMath.lerp(i / (_yLabelCount - 1).toFloat(), _currentYMinimum, _currentYMaximum)
             val label = _yLabelFormatter.format(value)
             yLabels.add(label to value)
-            yLabelSize = max(yLabelSize, textWidth(label))
+            yLabelSize = max(yLabelSize, textWidth(label) + 10f)
         }
 
         // X axis labels
