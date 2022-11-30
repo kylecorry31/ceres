@@ -22,6 +22,7 @@ import com.kylecorry.ceres.chart.data.ChartLayer
 import com.kylecorry.ceres.chart.label.ChartLabelFormatter
 import com.kylecorry.ceres.chart.label.NumberChartLabelFormatter
 import java.time.Instant
+import kotlin.math.absoluteValue
 import kotlin.math.max
 import kotlin.math.min
 
@@ -176,30 +177,37 @@ class Chart : CanvasView, IChart {
         _currentChartXMinimum += yLabelSize + if (_yLabelCount > 0f) _labelMargin else 0f
         _currentChartYMaximum -= xLabelSize + if (_xLabelCount > 0f) _labelMargin else 0f
 
+        val canDrawYLabels = (_currentYMaximum - _currentYMinimum).absoluteValue > 0
+        val canDrawXLabels = (_currentXMaximum - _currentXMinimum).absoluteValue > 0
+
         // Draw y labels
-        for (label in yLabels) {
-            textAlign(TextAlign.Right)
-            val x = yLabelSize
-            val y = mapY(label.second) + textHeight(label.first) / 2f
-            text(label.first, x, y)
+        if (canDrawYLabels) {
+            for (label in yLabels) {
+                textAlign(TextAlign.Right)
+                val x = yLabelSize
+                val y = mapY(label.second) + textHeight(label.first) / 2f
+                text(label.first, x, y)
+            }
         }
 
         // Draw x labels
-        for (i in xLabels.indices) {
-            val label = xLabels[i]
-            textAlign(TextAlign.Left)
-            val offset = when (i) {
-                0 -> 0f
-                xLabels.lastIndex -> textWidth(label.first)
-                else -> textWidth(label.first) / 2f
+        if (canDrawXLabels) {
+            for (i in xLabels.indices) {
+                val label = xLabels[i]
+                textAlign(TextAlign.Left)
+                val offset = when (i) {
+                    0 -> 0f
+                    xLabels.lastIndex -> textWidth(label.first)
+                    else -> textWidth(label.first) / 2f
+                }
+                val x = mapX(label.second) - offset
+                val y = height.toFloat() - _margin
+                text(label.first, x, y)
             }
-            val x = mapX(label.second) - offset
-            val y = height.toFloat() - _margin
-            text(label.first, x, y)
         }
 
         // Y grid lines
-        if (_yGridLines) {
+        if (_yGridLines && canDrawYLabels) {
             noFill()
             stroke(_gridColor)
             strokeWeight(_gridThickness)
@@ -214,7 +222,7 @@ class Chart : CanvasView, IChart {
         }
 
         // X grid lines
-        if (_xGridLines) {
+        if (_xGridLines && canDrawXLabels) {
             noFill()
             stroke(_gridColor)
             strokeWeight(_gridThickness)
