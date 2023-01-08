@@ -56,7 +56,6 @@ class CeresListView(context: Context, attrs: AttributeSet?) : RecyclerView(conte
             binding.icon.isVisible = listItem.icon != null
             listItem.icon?.apply(binding.icon)
             binding.trailingIconBtn.isVisible = listItem.trailingIcon != null
-            binding.trailingIconBtn.setOnClickListener { listItem.trailingIconAction() }
             listItem.trailingIcon?.apply(binding.trailingIconBtn)
             if (listItem.menu.isNotEmpty()) {
                 binding.menuBtn.isVisible = true

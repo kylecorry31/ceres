@@ -26,7 +26,6 @@ data class ListItem(
     val data: List<ListItemData> = emptyList(),
     val trailingText: CharSequence? = null,
     val trailingIcon: ListIcon? = null,
-    val trailingIconAction: () -> Unit = {},
     val menu: List<ListMenuItem> = emptyList(),
     val longClickAction: () -> Unit = {},
     val action: () -> Unit = {}
