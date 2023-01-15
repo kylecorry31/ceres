@@ -46,34 +46,26 @@ class AsyncImageView(context: Context, attrs: AttributeSet?) : AppCompatImageVie
     override fun setImageBitmap(bm: Bitmap?) {
         imageLoader.cancel()
         super.setImageBitmap(bm)
-        lastBitmap?.recycle()
     }
 
     override fun setImageDrawable(drawable: Drawable?) {
         imageLoader.cancel()
         super.setImageDrawable(drawable)
-        lastBitmap?.recycle()
     }
 
     override fun setImageResource(resId: Int) {
         imageLoader.cancel()
         super.setImageResource(resId)
-        lastBitmap?.recycle()
-
     }
 
     override fun setImageURI(uri: Uri?) {
         imageLoader.cancel()
         super.setImageURI(uri)
-        lastBitmap?.recycle()
-
     }
 
     override fun setImageIcon(icon: Icon?) {
         imageLoader.cancel()
         super.setImageIcon(icon)
-        lastBitmap?.recycle()
-
     }
 
     override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
