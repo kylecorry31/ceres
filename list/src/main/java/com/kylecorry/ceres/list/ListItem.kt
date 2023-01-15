@@ -114,6 +114,7 @@ data class AsyncListIcon(
     @ColorInt val tint: Int? = null,
     val size: Float = 24f,
     val scaleType: ImageView.ScaleType = ImageView.ScaleType.FIT_CENTER,
+    val clearOnPause: Boolean = false,
     val onClick: (() -> Unit)? = null
 ) : ListIcon {
     override fun apply(image: ImageView) {
@@ -121,6 +122,7 @@ data class AsyncListIcon(
             return
         }
 
+        image.clearOnPause = clearOnPause
         image.isVisible = true
         image.setImageBitmap(lifecycleOwner, bitmapLoader)
         Colors.setImageColor(image, tint)

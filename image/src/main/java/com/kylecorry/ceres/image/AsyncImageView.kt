@@ -21,7 +21,12 @@ class AsyncImageView(context: Context, attrs: AttributeSet?) : AppCompatImageVie
     private var imageLoader: ControlledRunner<Unit> = ControlledRunner()
     private var lastBitmap: Bitmap? = null
 
-    fun setImageBitmap(lifecycleOwner: LifecycleOwner, provider: suspend () -> Bitmap) {
+    var clearOnPause = false
+
+    fun setImageBitmap(
+        lifecycleOwner: LifecycleOwner,
+        provider: suspend () -> Bitmap
+    ) {
         lifecycleOwner.lifecycle.removeObserver(this)
         lifecycleOwner.lifecycle.addObserver(this)
 
@@ -44,7 +49,7 @@ class AsyncImageView(context: Context, attrs: AttributeSet?) : AppCompatImageVie
     }
 
     fun recycleLastBitmap(clearView: Boolean = true) {
-        if (clearView){
+        if (clearView) {
             setImageDrawable(null)
         }
         lastBitmap?.recycle()
@@ -77,7 +82,7 @@ class AsyncImageView(context: Context, attrs: AttributeSet?) : AppCompatImageVie
     }
 
     override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
-        if (event == Lifecycle.Event.ON_DESTROY) {
+        if (event == Lifecycle.Event.ON_DESTROY || (clearOnPause && event == Lifecycle.Event.ON_PAUSE)) {
             imageLoader.cancel()
             recycleLastBitmap(true)
         }
