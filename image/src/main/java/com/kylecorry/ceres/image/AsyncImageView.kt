@@ -21,8 +21,6 @@ class AsyncImageView(context: Context, attrs: AttributeSet?) : AppCompatImageVie
     private var imageLoader: ControlledRunner<Unit> = ControlledRunner()
     private var lastBitmap: Bitmap? = null
 
-    private var shouldClearBitmap = true
-
     fun setImageBitmap(lifecycleOwner: LifecycleOwner, provider: suspend () -> Bitmap) {
         lifecycleOwner.lifecycle.removeObserver(this)
         lifecycleOwner.lifecycle.addObserver(this)
@@ -38,54 +36,50 @@ class AsyncImageView(context: Context, attrs: AttributeSet?) : AppCompatImageVie
                 }
                 withContext(Dispatchers.Main) {
                     if (lastBitmap?.isRecycled == false) {
-                        shouldClearBitmap = false
                         super.setImageBitmap(lastBitmap)
-                        shouldClearBitmap = true
                     }
                 }
             }
         }
     }
 
+    fun recycleLastBitmap(clearView: Boolean = true) {
+        if (clearView){
+            setImageDrawable(null)
+        }
+        lastBitmap?.recycle()
+        lastBitmap = null
+    }
+
     override fun setImageBitmap(bm: Bitmap?) {
         imageLoader.cancel()
         super.setImageBitmap(bm)
-        tryClear()
     }
 
     override fun setImageDrawable(drawable: Drawable?) {
         imageLoader.cancel()
         super.setImageDrawable(drawable)
-        tryClear()
     }
 
     override fun setImageResource(resId: Int) {
         imageLoader.cancel()
         super.setImageResource(resId)
-        tryClear()
     }
 
     override fun setImageURI(uri: Uri?) {
         imageLoader.cancel()
         super.setImageURI(uri)
-        tryClear()
     }
 
     override fun setImageIcon(icon: Icon?) {
         imageLoader.cancel()
         super.setImageIcon(icon)
-        tryClear()
     }
 
     override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
         if (event == Lifecycle.Event.ON_DESTROY) {
             imageLoader.cancel()
-        }
-    }
-
-    private fun tryClear(){
-        if (shouldClearBitmap) {
-            lastBitmap?.recycle()
+            recycleLastBitmap(true)
         }
     }
 

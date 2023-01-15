@@ -11,7 +11,6 @@ import androidx.core.view.setPadding
 import androidx.lifecycle.LifecycleOwner
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.tryOrLog
-import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.core.ui.Colors
 import com.kylecorry.andromeda.core.ui.setCompoundDrawables
 import com.kylecorry.ceres.image.AsyncImageView
@@ -61,6 +60,9 @@ data class ResourceListIcon(
     override fun apply(image: ImageView) {
         image.isVisible = true
         image.setImageResource(id)
+        if (image is AsyncImageView){
+            image.recycleLastBitmap(false)
+        }
         Colors.setImageColor(image, tint)
 
         image.scaleType = scaleType
