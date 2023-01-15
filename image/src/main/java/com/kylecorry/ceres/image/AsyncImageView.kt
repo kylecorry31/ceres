@@ -12,7 +12,6 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import com.kylecorry.andromeda.core.coroutines.ControlledRunner
-import com.kylecorry.andromeda.core.tryOrLog
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -23,23 +22,21 @@ class AsyncImageView(context: Context, attrs: AttributeSet?) : AppCompatImageVie
     private var lastBitmap: Bitmap? = null
 
     fun setImageBitmap(lifecycleOwner: LifecycleOwner, provider: suspend () -> Bitmap) {
-        // Remove and add the observer to ensure only one is added
         lifecycleOwner.lifecycle.removeObserver(this)
         lifecycleOwner.lifecycle.addObserver(this)
 
         lifecycleOwner.lifecycleScope.launchWhenResumed {
             imageLoader.cancelPreviousThenRun {
                 withContext(Dispatchers.Main) {
-                    clearBitmap()
+                    super.setImageDrawable(null)
                 }
                 lastBitmap = withContext(Dispatchers.IO) {
+                    lastBitmap?.recycle()
                     provider.invoke()
                 }
                 withContext(Dispatchers.Main) {
                     if (lastBitmap?.isRecycled == false) {
-                        tryOrLog {
-                            super.setImageBitmap(lastBitmap)
-                        }
+                        super.setImageBitmap(lastBitmap)
                     }
                 }
             }
@@ -48,46 +45,32 @@ class AsyncImageView(context: Context, attrs: AttributeSet?) : AppCompatImageVie
 
     override fun setImageBitmap(bm: Bitmap?) {
         imageLoader.cancel()
-        clearBitmap()
         super.setImageBitmap(bm)
     }
 
     override fun setImageDrawable(drawable: Drawable?) {
         imageLoader.cancel()
-        clearBitmap()
         super.setImageDrawable(drawable)
     }
 
     override fun setImageResource(resId: Int) {
         imageLoader.cancel()
-        clearBitmap()
         super.setImageResource(resId)
     }
 
     override fun setImageURI(uri: Uri?) {
         imageLoader.cancel()
-        clearBitmap()
         super.setImageURI(uri)
     }
 
     override fun setImageIcon(icon: Icon?) {
         imageLoader.cancel()
-        clearBitmap()
         super.setImageIcon(icon)
     }
 
     override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
         if (event == Lifecycle.Event.ON_DESTROY) {
             imageLoader.cancel()
-            clearBitmap()
-        }
-    }
-
-    private fun clearBitmap() {
-        tryOrLog {
-            super.setImageDrawable(null)
-            lastBitmap?.recycle()
-            lastBitmap = null
         }
     }
 
