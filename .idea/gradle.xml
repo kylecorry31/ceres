@@ -15,6 +15,7 @@
             <option value="$PROJECT_DIR$/badge" />
             <option value="$PROJECT_DIR$/chart" />
             <option value="$PROJECT_DIR$/core" />
+            <option value="$PROJECT_DIR$/image" />
             <option value="$PROJECT_DIR$/list" />
             <option value="$PROJECT_DIR$/toolbar" />
           </set>

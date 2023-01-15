@@ -1,5 +1,6 @@
 package com.kylecorry.ceres.list
 
+import android.graphics.Bitmap
 import android.view.ViewOutlineProvider
 import android.widget.ImageView
 import android.widget.TextView
@@ -7,11 +8,13 @@ import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.core.view.isVisible
 import androidx.core.view.setPadding
+import androidx.lifecycle.LifecycleOwner
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.tryOrLog
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.core.ui.Colors
 import com.kylecorry.andromeda.core.ui.setCompoundDrawables
+import com.kylecorry.ceres.image.AsyncImageView
 import kotlin.math.roundToInt
 
 data class ListItem(
@@ -100,5 +103,46 @@ data class ResourceListIcon(
         )
         Colors.setImageColor(text, tint)
         // TODO: Possibly apply background color
+    }
+}
+
+data class AsyncListIcon(
+    val lifecycleOwner: LifecycleOwner,
+    val bitmapLoader: suspend () -> Bitmap,
+    @ColorInt val tint: Int? = null,
+    val size: Float = 24f,
+    val scaleType: ImageView.ScaleType = ImageView.ScaleType.FIT_CENTER,
+    val onClick: (() -> Unit)? = null
+) : ListIcon {
+    override fun apply(image: ImageView) {
+        if (image !is AsyncImageView) {
+            return
+        }
+
+        image.isVisible = true
+        image.setImageBitmap(lifecycleOwner, bitmapLoader)
+        Colors.setImageColor(image, tint)
+
+        image.scaleType = scaleType
+        tryOrLog {
+            image.layoutParams.width = Resources.dp(image.context, size).toInt()
+            image.layoutParams.height = Resources.dp(image.context, size).toInt()
+        }
+
+        image.background = null
+        image.clipToOutline = false
+
+        image.setPadding(0)
+
+        image.requestLayout()
+        if (onClick == null) {
+            image.setOnClickListener(null)
+        } else {
+            image.setOnClickListener { onClick.invoke() }
+        }
+    }
+
+    override fun apply(text: TextView) {
+        // Does not apply to textview
     }
 }
