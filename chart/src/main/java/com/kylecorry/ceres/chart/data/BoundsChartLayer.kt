@@ -70,6 +70,9 @@ class BoundsChartLayer(
         drawer.noStroke()
         drawer.path(path)
 
+        // Reset the opacity
+        drawer.opacity(255)
+
         hasChanges = false
     }
 

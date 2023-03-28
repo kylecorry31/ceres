@@ -29,5 +29,8 @@ class ScatterChartLayer(
             drawer.circle(mapped.x, mapped.y, dpRadius)
         }
         super.draw(drawer, chart)
+
+        // Reset the opacity
+        drawer.opacity(255)
     }
 }

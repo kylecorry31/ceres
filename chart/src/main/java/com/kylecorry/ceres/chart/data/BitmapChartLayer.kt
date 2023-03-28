@@ -30,6 +30,7 @@ class BitmapChartLayer(
         }
 
     override fun draw(drawer: ICanvasDrawer, chart: IChart) {
+        drawer.opacity(255)
         drawer.noStroke()
         drawer.noFill()
         val tint = tint

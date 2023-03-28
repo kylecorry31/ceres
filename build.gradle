@@ -5,10 +5,10 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:7.2.2'
-        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.20'
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.0'
     }
     ext.groupId = 'com.kylecorry.ceres'
-    ext.versionName = '0.3.3'
+    ext.versionName = '0.3.4'
     ext.andromedaVersion = '5.0.0-beta26'
     ext.targetVersion = 33
     ext.compileVersion = 33

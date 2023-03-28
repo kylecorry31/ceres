@@ -42,5 +42,8 @@ class LineChartLayer(
         drawer.path(path)
 
         super.draw(drawer, chart)
+
+        // Reset the opacity
+        drawer.opacity(255)
     }
 }

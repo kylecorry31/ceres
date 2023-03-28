@@ -52,6 +52,9 @@ class FullAreaChartLayer(
             abs(bottomRight.y - topLeft.y)
         )
 
+        // Reset the opacity
+        drawer.opacity(255)
+
         hasChanges = false
     }
 

@@ -96,6 +96,9 @@ class AreaChartLayer(
         drawer.noStroke()
         drawer.path(areaPath)
 
+        // Reset the opacity
+        drawer.opacity(255)
+
         super.draw(drawer, chart)
     }
 
