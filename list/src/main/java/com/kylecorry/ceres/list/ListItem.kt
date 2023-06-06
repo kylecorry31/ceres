@@ -9,6 +9,8 @@ import androidx.annotation.DrawableRes
 import androidx.core.view.isVisible
 import androidx.core.view.setPadding
 import androidx.lifecycle.LifecycleOwner
+import com.google.android.flexbox.AlignItems
+import com.google.android.flexbox.JustifyContent
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.tryOrLog
 import com.kylecorry.andromeda.core.ui.Colors
@@ -26,6 +28,8 @@ data class ListItem(
     val checkbox: ListItemCheckbox? = null,
     val tags: List<ListItemTag> = emptyList(),
     val data: List<ListItemData> = emptyList(),
+    @JustifyContent val dataHorizontalAlignment: Int = JustifyContent.FLEX_START,
+    @AlignItems val dataVerticalAlignment: Int = AlignItems.FLEX_START,
     val trailingText: CharSequence? = null,
     val trailingIcon: ListIcon? = null,
     val menu: List<ListMenuItem> = emptyList(),

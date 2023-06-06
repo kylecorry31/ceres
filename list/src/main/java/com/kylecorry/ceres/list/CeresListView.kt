@@ -81,6 +81,8 @@ class CeresListView(context: Context, attrs: AttributeSet?) : RecyclerView(conte
                 binding.data3
             )
 
+            binding.data.justifyContent = listItem.dataHorizontalAlignment
+            binding.data.alignItems = listItem.dataVerticalAlignment
             for (i in dataViews.indices) {
                 // TODO: Allow more than 3 data points
                 if (listItem.data.size > i) {
