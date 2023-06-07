@@ -6,6 +6,7 @@ import android.util.AttributeSet
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.flexbox.FlexboxLayout
 import com.kylecorry.andromeda.core.ui.Colors
 import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.andromeda.pickers.Pickers
@@ -81,8 +82,10 @@ class CeresListView(context: Context, attrs: AttributeSet?) : RecyclerView(conte
                 binding.data3
             )
 
-            binding.data.justifyContent = listItem.dataHorizontalAlignment
-            binding.data.alignItems = listItem.dataVerticalAlignment
+            binding.data.justifyContent = listItem.dataAlignment.horizontalSpacing
+            binding.data.alignItems = listItem.dataAlignment.verticalAlignment
+            binding.data.alignContent = listItem.dataAlignment.horizontalAlignment
+
             for (i in dataViews.indices) {
                 // TODO: Allow more than 3 data points
                 if (listItem.data.size > i) {
@@ -94,6 +97,16 @@ class CeresListView(context: Context, attrs: AttributeSet?) : RecyclerView(conte
                     } else {
                         data.icon.apply(dataViews[i])
                     }
+
+                    // Set the layout properties for grow, shrink, and basis - create it if it doesn't exist
+                    val layoutParams = dataViews[i].layoutParams as? FlexboxLayout.LayoutParams ?: FlexboxLayout.LayoutParams(
+                        FlexboxLayout.LayoutParams.WRAP_CONTENT,
+                        FlexboxLayout.LayoutParams.WRAP_CONTENT
+                    )
+                    layoutParams.flexGrow = data.grow
+                    layoutParams.flexShrink = data.shrink
+                    layoutParams.flexBasisPercent = data.basis * 100
+                    dataViews[i].layoutParams = layoutParams
                 } else {
                     dataViews[i].isVisible = false
                 }
