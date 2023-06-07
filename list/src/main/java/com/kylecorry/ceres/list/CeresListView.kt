@@ -82,9 +82,9 @@ class CeresListView(context: Context, attrs: AttributeSet?) : RecyclerView(conte
                 binding.data3
             )
 
-            binding.data.justifyContent = listItem.dataAlignment.horizontalSpacing
-            binding.data.alignItems = listItem.dataAlignment.verticalAlignment
-            binding.data.alignContent = listItem.dataAlignment.horizontalAlignment
+            binding.data.justifyContent = listItem.dataAlignment.justifyContent
+            binding.data.alignItems = listItem.dataAlignment.alignItems
+            binding.data.alignContent = listItem.dataAlignment.alignContent
 
             for (i in dataViews.indices) {
                 // TODO: Allow more than 3 data points
@@ -106,6 +106,7 @@ class CeresListView(context: Context, attrs: AttributeSet?) : RecyclerView(conte
                     layoutParams.flexGrow = data.grow
                     layoutParams.flexShrink = data.shrink
                     layoutParams.flexBasisPercent = data.basisPercentage
+                    layoutParams.alignSelf = data.alignment
                     dataViews[i].layoutParams = layoutParams
                 } else {
                     dataViews[i].isVisible = false
