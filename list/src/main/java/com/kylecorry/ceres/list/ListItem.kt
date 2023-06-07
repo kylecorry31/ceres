@@ -9,6 +9,7 @@ import androidx.annotation.DrawableRes
 import androidx.core.view.isVisible
 import androidx.core.view.setPadding
 import androidx.lifecycle.LifecycleOwner
+import com.google.android.flexbox.FlexItem
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.tryOrLog
 import com.kylecorry.andromeda.core.ui.Colors
@@ -42,8 +43,8 @@ data class ListItemData(
     val text: CharSequence,
     val icon: ListIcon?,
     val grow: Float = 0f,
-    val shrink: Float = 0f,
-    val basis: Float = 0f
+    val shrink: Float = 1f,
+    val basisPercentage: Float = -1f
 )
 
 data class ListItemCheckbox(val checked: Boolean, val onClick: () -> Unit)

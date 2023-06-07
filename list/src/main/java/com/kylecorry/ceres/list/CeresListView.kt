@@ -105,7 +105,7 @@ class CeresListView(context: Context, attrs: AttributeSet?) : RecyclerView(conte
                     )
                     layoutParams.flexGrow = data.grow
                     layoutParams.flexShrink = data.shrink
-                    layoutParams.flexBasisPercent = data.basis * 100
+                    layoutParams.flexBasisPercent = data.basisPercentage
                     dataViews[i].layoutParams = layoutParams
                 } else {
                     dataViews[i].isVisible = false
