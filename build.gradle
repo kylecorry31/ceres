@@ -4,14 +4,14 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.2.2'
+        classpath 'com.android.tools.build:gradle:7.4.2'
         classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.0'
     }
     ext.groupId = 'com.kylecorry.ceres'
-    ext.versionName = '0.3.5'
-    ext.andromedaVersion = '5.6.0'
-    ext.targetVersion = 33
-    ext.compileVersion = 33
+    ext.versionName = '0.4.0'
+    ext.andromedaVersion = '9f22dc8dc8'
+    ext.targetVersion = 34
+    ext.compileVersion = 34
 }
 
 allprojects {

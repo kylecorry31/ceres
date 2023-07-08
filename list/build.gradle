@@ -64,13 +64,13 @@ afterEvaluate {
 dependencies {
     implementation project(':badge')
     implementation project(':image')
-    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.core:core-ktx:1.10.1'
     implementation "com.github.kylecorry31.andromeda:core:${andromedaVersion}"
     implementation "com.github.kylecorry31.andromeda:list:${andromedaVersion}"
     implementation "com.github.kylecorry31.andromeda:pickers:${andromedaVersion}"
     implementation 'com.google.android.flexbox:flexbox:3.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'com.google.android.material:material:1.7.0'
+    implementation 'com.google.android.material:material:1.9.0'
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.junit.platform:junit-platform-runner:1.9.2'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.2'
