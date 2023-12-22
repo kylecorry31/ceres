@@ -9,7 +9,7 @@ buildscript {
     }
     ext.groupId = 'com.kylecorry.ceres'
     ext.versionName = '0.4.0'
-    ext.andromedaVersion = 'c8b8baf887'
+    ext.andromedaVersion = 'a902ae2109'
     ext.targetVersion = 34
     ext.compileVersion = 34
 }
